@@ -1,8 +1,6 @@
 # ☕ HỆ THỐNG QUẢN LÝ & GỌI MÓN TẠI BÀN — CÀ PHÊ 458
 
-> **Dự án:** Trang web hệ thống bán hàng quán Cà phê 458  
-> **Học phần:** 50K142.08 — Phân tích Thiết kế Hệ thống Thông tin  
-> **Địa chỉ quán thực tế:** 458 Nguyễn Duy Trinh, Ngũ Hành Sơn, Đà Nẵng
+> **Tên Quán** CÀ PHÊ 458
 
 ---
 
@@ -10,10 +8,10 @@
 
 Hệ thống web đã được triển khai hoàn tất và hoạt động trực tuyến với 2 phân hệ người dùng chính:
 
-| Phân hệ Web                      |  Đối tượng sử dụng  | Đường dẫn trực tiếp (Web Link)                                                                                                      | Mô tả & Thao tác                                                                                                        |
-| :------------------------------- | :-----------------: | :---------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
-| **Phần 1: Giao diện Khách hàng** |   Khách tại quán    | [https://cafe458-system-50-k142-08.vercel.app/menu?qr=ban01](https://cafe458-system-50-k142-08.vercel.app/menu?qr=OOfzoiPVVFgEqhky) | Khách quét mã QR tại bàn để xem thực đơn, chọn món, ghi chú và thanh toán tại chỗ.<br>                                  |
-| **Phần 2: Giao diện Chủ quán**   | Chủ quán / Quản trị | [https://cafe458-system-50-k142-08.vercel.app/login](https://cafe458-system-50-k142-08.vercel.app/login)                            | Màn hình đăng nhập quản trị hệ thống: duyệt đơn hàng thời gian thực, quản lý menu món, sơ đồ bàn và theo dõi doanh thu. |
+| Phân hệ Web                      |  Đối tượng sử dụng  | Đường dẫn trực tiếp (Web Link)                                                                                                                 | Mô tả & Thao tác                                                                                                        |
+| :------------------------------- | :-----------------: | :--------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| **Phần 1: Giao diện Khách hàng** |   Khách tại quán    | [https://cafe458-system-50-k142-08.vercel.app/menu?qr=OOfzoiPVVFgEqhky](https://cafe458-system-50-k142-08.vercel.app/menu?qr=OOfzoiPVVFgEqhky) | Khách quét mã QR tại bàn để xem thực đơn, chọn món, ghi chú và thanh toán tại chỗ.<br>                                  |
+| **Phần 2: Giao diện Chủ quán**   | Chủ quán / Quản trị | [https://cafe458-system-50-k142-08.vercel.app/login](https://cafe458-system-50-k142-08.vercel.app/login)                                       | Màn hình đăng nhập quản trị hệ thống: duyệt đơn hàng thời gian thực, quản lý menu món, sơ đồ bàn và theo dõi doanh thu. |
 
 ---
 
