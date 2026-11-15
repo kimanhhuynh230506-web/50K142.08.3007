@@ -1,4 +1,4 @@
-# ☕ HỆ THỐNG QUẢN LÝ & GỌI MÓN TẠI BÀN — CÀ PHÊ 458
+# ☕ HỆ THỐNG QUẢN LÝ BÁN HÀNG — CÀ PHÊ 458
 
 > **Tên Quán** CÀ PHÊ 458
 
