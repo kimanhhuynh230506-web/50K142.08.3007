@@ -2,7 +2,7 @@
 
 > **Dự án:** Trang web hệ thống bán hàng quán Cà phê 458  
 > **Học phần:** 50K142.08 — Phân tích Thiết kế Hệ thống Thông tin  
-> **Địa chỉ quán thực tế:** 458 Trưng Nữ Vương, Hải Châu, Đà Nẵng
+> **Địa chỉ quán thực tế:** 458 Nguyễn Duy Trinh, Ngũ Hành Sơn, Đà Nẵng
 
 ---
 
