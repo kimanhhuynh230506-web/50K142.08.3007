@@ -1,0 +1,505 @@
+{
+  "info": {
+    "_postman_id": "cafe458-be-api-test-collection",
+    "name": "Cafe458 - Backend API Test Suite (23 APIs)",
+    "description": "Bộ kịch bản kiểm thử toàn diện 23 RESTful API cho Back-End Hệ thống Quản lý Cà phê 458.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "qr_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "ma_ban",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "ma_mon",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "ma_don_hang",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Xác thực (Auth)",
+      "item": [
+        {
+          "name": "API-AUTH-01: Đăng nhập",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('token', jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ten_dang_nhap\": \"admin_cafe458\",\n  \"mat_khau\": \"MatKhauChuQuan458!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "API-AUTH-02: Đăng xuất",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "logout"]
+            }
+          }
+        },
+        {
+          "name": "API-AUTH-03: Đổi mật khẩu",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mat_khau_cu\": \"MatKhauChuQuan458!\",\n  \"mat_khau_moi\": \"NewSecret458@2026\",\n  \"nhap_lai_mat_khau_moi\": \"NewSecret458@2026\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "password"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Khách hàng (Customer)",
+      "item": [
+        {
+          "name": "API-CUST-01: Xem menu và món đề cử",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/customer/menu?qr_token={{qr_token}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["customer", "menu"],
+              "query": [
+                { "key": "qr_token", "value": "{{qr_token}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "API-CUST-02: Tính trước đơn hàng & thông tin VietQR",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"qr_token\": \"{{qr_token}}\",\n  \"items\": [\n    {\n      \"ma_mon\": {{ma_mon}},\n      \"so_luong\": 2\n    }\n  ],\n  \"phuong_thuc_thanh_toan\": \"Chuyển khoản\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/customer/orders/preview",
+              "host": ["{{baseUrl}}"],
+              "path": ["customer", "orders", "preview"]
+            }
+          }
+        },
+        {
+          "name": "API-CUST-03: Tạo đơn đặt món",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.ma_don_hang) {",
+                  "    pm.collectionVariables.set('ma_don_hang', jsonData.ma_don_hang);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"qr_token\": \"{{qr_token}}\",\n  \"items\": [\n    {\n      \"ma_mon\": {{ma_mon}},\n      \"so_luong\": 2\n    }\n  ],\n  \"phuong_thuc_thanh_toan\": \"Chuyển khoản\",\n  \"ghi_chu\": \"Ít đá\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/customer/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["customer", "orders"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Quản lý gọi món (Orders) & Thông báo",
+      "item": [
+        {
+          "name": "API-NOTIF-01: Polling kiểm tra đơn mới",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/notifications/unread-orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "notifications", "unread-orders"]
+            }
+          }
+        },
+        {
+          "name": "API-ORD-01: Lấy danh sách đơn theo ngày",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "orders"]
+            }
+          }
+        },
+        {
+          "name": "API-ORD-02: Xem chi tiết một đơn hàng",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/orders/{{ma_don_hang}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "orders", "{{ma_don_hang}}"]
+            }
+          }
+        },
+        {
+          "name": "API-ORD-03: Xác nhận đã nhận tiền",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/orders/{{ma_don_hang}}/confirm-payment",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "orders", "{{ma_don_hang}}", "confirm-payment"]
+            }
+          }
+        },
+        {
+          "name": "API-ORD-04: Xóa đơn hàng (xóa mềm)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/orders/{{ma_don_hang}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "orders", "{{ma_don_hang}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Thực đơn (Menu) & Media",
+      "item": [
+        {
+          "name": "API-MENU-01: Lấy danh sách món cho chủ quán",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/menu",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "menu"]
+            }
+          }
+        },
+        {
+          "name": "API-MENU-02: Thêm món mới",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.ma_mon) {",
+                  "    pm.collectionVariables.set('ma_mon', jsonData.ma_mon);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ten_mon\": \"Cà phê muối xứ Huế\",\n  \"gia_ban\": 32000,\n  \"hinh_anh\": null\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/menu",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "menu"]
+            }
+          }
+        },
+        {
+          "name": "API-MENU-03: Cập nhật thông tin món",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ten_mon\": \"Cà phê muối xứ Huế (Đặc biệt)\",\n  \"gia_ban\": 35000,\n  \"trang_thai\": \"Hiển thị\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/menu/{{ma_mon}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "menu", "{{ma_mon}}"]
+            }
+          }
+        },
+        {
+          "name": "API-MENU-04: Xóa món khỏi thực đơn",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/menu/{{ma_mon}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "menu", "{{ma_mon}}"]
+            }
+          }
+        },
+        {
+          "name": "API-MEDIA-01: Tải lên hình ảnh món ăn",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/menu/upload-image",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "menu", "upload-image"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Bàn ăn (Tables)",
+      "item": [
+        {
+          "name": "API-TAB-01: Lấy sơ đồ trạng thái bàn",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/tables",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "tables"]
+            }
+          }
+        },
+        {
+          "name": "API-TAB-02: Thêm bàn mới",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.ma_ban) {",
+                  "    pm.collectionVariables.set('ma_ban', jsonData.ma_ban);",
+                  "}",
+                  "if (jsonData.ma_qr) {",
+                  "    pm.collectionVariables.set('qr_token', jsonData.ma_qr);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"so_ban\": \"08\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/tables",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "tables"]
+            }
+          }
+        },
+        {
+          "name": "API-TAB-03: Tải file ảnh mã QR của bàn",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/tables/{{ma_ban}}/qr-image",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "tables", "{{ma_ban}}", "qr-image"]
+            }
+          }
+        },
+        {
+          "name": "API-TAB-05: Xác nhận bàn trống",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/tables/{{ma_ban}}/empty",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "tables", "{{ma_ban}}", "empty"]
+            }
+          }
+        },
+        {
+          "name": "API-TAB-04: Xóa bàn (chỉ bàn Trống)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/tables/{{ma_ban}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "tables", "{{ma_ban}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Quản lý doanh thu (Reports)",
+      "item": [
+        {
+          "name": "API-REP-01: Lấy danh sách tổng doanh thu (ngày/tháng/năm)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/reports/revenue?period=day",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "reports", "revenue"],
+              "query": [
+                { "key": "period", "value": "day" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "API-REP-02: Chi tiết doanh thu & Thống kê bán hàng (GỘP)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/reports/details?period=day&date=2026-11-11",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "reports", "details"],
+              "query": [
+                { "key": "period", "value": "day" },
+                { "key": "date", "value": "2026-11-11" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
