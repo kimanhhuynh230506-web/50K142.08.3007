@@ -1,7 +1,7 @@
 # ☕ HỆ THỐNG QUẢN LÝ & GỌI MÓN TẠI BÀN — CÀ PHÊ 458
 
 > **Dự án:** Trang web hệ thống bán hàng quán Cà phê 458  
-> **Mã học phần:** 50K142.08 — Phân tích Thiết kế Hệ thống Thông tin  
+> **Học phần:** 50K142.08 — Phân tích Thiết kế Hệ thống Thông tin  
 > **Địa chỉ quán thực tế:** 458 Trưng Nữ Vương, Hải Châu, Đà Nẵng
 
 ---
@@ -10,10 +10,10 @@
 
 Hệ thống web đã được triển khai hoàn tất và hoạt động trực tuyến với 2 phân hệ người dùng chính:
 
-| Phân hệ Web                      |  Đối tượng sử dụng  | Đường dẫn trực tiếp (Web Link)                                                                                           | Mô tả & Thao tác                                                                                                                                                                                                                                               |
-| :------------------------------- | :-----------------: | :----------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Phần 1: Giao diện Khách hàng** |   Khách tại quán    | [https://cafe458-system-50-k142-08.vercel.app/menu?qr=ban03](https://cafe458-system-50-k142-08.vercel.app/menu?qr=ban03) | Khách quét mã QR tại bàn để xem thực đơn, chọn món, ghi chú và thanh toán tại chỗ.<br>_(Các bàn thử nghiệm khác: [Bàn 01](https://cafe458-system-50-k142-08.vercel.app/menu?qr=ban01) • [Bàn 05](https://cafe458-system-50-k142-08.vercel.app/menu?qr=ban05))_ |
-| **Phần 2: Giao diện Chủ quán**   | Chủ quán / Quản trị | [https://cafe458-system-50-k142-08.vercel.app/login](https://cafe458-system-50-k142-08.vercel.app/login)                 | Màn hình đăng nhập quản trị hệ thống: duyệt đơn hàng thời gian thực, quản lý menu món, sơ đồ bàn và theo dõi doanh thu.                                                                                                                                        |
+| Phân hệ Web                      |  Đối tượng sử dụng  | Đường dẫn trực tiếp (Web Link)                                                                                           | Mô tả & Thao tác                                                                                                                                                                         |
+| :------------------------------- | :-----------------: | :----------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Phần 1: Giao diện Khách hàng** |   Khách tại quán    | [https://cafe458-system-50-k142-08.vercel.app/menu?qr=ban03](https://cafe458-system-50-k142-08.vercel.app/menu?qr=ban03) | Khách quét mã QR tại bàn để xem thực đơn, chọn món, ghi chú và thanh toán tại chỗ.<br>\_(Các bàn thử nghiệm khác: [Bàn 01](https://cafe458-system-50-k142-08.vercel.app/menu?qr=ban01) ) |
+| **Phần 2: Giao diện Chủ quán**   | Chủ quán / Quản trị | [https://cafe458-system-50-k142-08.vercel.app/login](https://cafe458-system-50-k142-08.vercel.app/login)                 | Màn hình đăng nhập quản trị hệ thống: duyệt đơn hàng thời gian thực, quản lý menu món, sơ đồ bàn và theo dõi doanh thu.                                                                  |
 
 ---
 
@@ -208,8 +208,3 @@ git push origin main
   - Back-End (`pytest`): Đạt **26/27 tests pass** bao phủ toàn bộ luồng nghiệp vụ xác thực, đặt món, chuyển trạng thái bàn và tính toán doanh thu.
 
 ---
-
-## 📞 10. LIÊN HỆ & THÔNG TIN DỰ ÁN
-
-- **Học phần:** Phân tích Thiết kế Hệ thống Thông tin (50K14.2)
-- **Kho lưu trữ GitHub:** [qbao020206-tech/cafe458-system-50K142.08](https://github.com/qbao020206-tech/cafe458-system-50K142.08)
